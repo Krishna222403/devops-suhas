@@ -12,6 +12,9 @@ sudo apt upgrade -y
 echo "2. Installing OpenJDK 17..."
 sudo apt install -y openjdk-17-jdk
 
+# Force Java 17 as the default so it doesn't conflict with Java 21 (from Jenkins)
+sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java || echo "Could not set Java 17 as default automatically. Please check manually."
+
 echo "3. Installing and Configuring PostgreSQL..."
 # Add PostgreSQL repo
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
@@ -101,6 +104,10 @@ echo "fs.file-max=65536" | sudo tee -a /etc/sysctl.conf > /dev/null
 
 # Apply the kernel changes immediately without needing a reboot
 sudo sysctl -p
+
+# Clear out any stale temp/data files before the first startup
+sudo rm -rf /opt/sonarqube/temp/*
+sudo rm -rf /opt/sonarqube/data/*
 
 echo "9. Starting SonarQube Service..."
 sudo systemctl start sonar
