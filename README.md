@@ -12,10 +12,14 @@ This repository contains robust bash scripts to automate the deployment and mana
 This is the main installation manager. You can use it to pick and choose which tools you want to install.
 
 ### Step-by-Step Instructions
-1. Upload `install_services.sh`, `sonarqube.sh`, and `manage_services.sh` to your server.
-2. Make the installation script executable:
+1. Clone this repository to your server:
    ```bash
-   chmod +x install_services.sh
+   git clone https://github.com/SuhasLingam/devops.git
+   cd devops
+   ```
+2. Make the scripts executable:
+   ```bash
+   chmod +x *.sh
    ```
 3. Run the installer:
    ```bash
